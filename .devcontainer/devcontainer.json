@@ -1,0 +1,93 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "Python 3",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/python:0-3.11",
+
+  // vscode settings
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.insertFinalNewline": true,
+        "workbench.iconTheme": "material-icon-theme",
+        "material-icon-theme.activeIconPack": "react",
+        // TODO highlight
+        "todohighlight.keywords": [
+          {
+            "text": "TODO:",
+            "backgroundColor": "mediumvioletred"
+          },
+          {
+            "text": "HACK:",
+            "backgroundColor": "mediumblue"
+          },
+          {
+            "text": "NOTE:",
+            "backgroundColor": "sienna"
+          },
+          {
+            "text": "XXX:",
+            "backgroundColor": "dimgray"
+          },
+          {
+            "text": "FIXME:",
+            "backgroundColor": "darkolivegreen"
+          }
+        ],
+        "todohighlight.defaultStyle": {
+          "color": "white",
+          "backgroundColor": "#ffab00",
+          "cursor": "pointer",
+          "isWholeLine": true
+        },
+
+        "[json]": {
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "vscode.json-language-features"
+        },
+        "[typescriptreact]": {
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[typescript]": {
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "editor.codeActionsOnSave": [
+          // Add missing imports at save
+          "source.addMissingImports",
+          // Remove unused import at save
+          "source.fixAll.eslint"
+        ],
+        // ChatGPT extension settings
+        "genieai.promptPrefix.findProblems": "次のコードの問題点を見つけてください",
+        "genieai.promptPrefix.addTests": "次のコードにテストを追加してください",
+        "genieai.promptPrefix.optimize": "次のコードを最適化してください",
+        "genieai.promptPrefix.explain": "次のコードを説明してください",
+        "genieai.promptPrefix.addComments": "次のコードにコメントを追加してください",
+        "genieai.promptPrefix.completeCode": "次のコードを完成させてください",
+        "genieai.openai.temperature": 0.5,
+        "genieai.promptPrefix.customPrompt1": "次のコードを○○してください",
+        "genieai.promptPrefix.customPrompt1-enabled": true,
+        "genieai.promptPrefix.customPrompt2": "次の文章を○○してください",
+        "genieai.promptPrefix.customPrompt2-enabled": true,
+        "genieai.enableConversationHistory": true,
+
+        // AWS Toolkit extension settings
+        "aws.telemetry": false
+      },
+      "extensions": [
+        "donjayamanne.githistory",
+        "alefragnani.Bookmarks",
+        "PKief.material-icon-theme",
+        "wayou.vscode-todo-highlight",
+        "bmewburn.vscode-intelephense-client",
+        "xdebug.php-debug",
+        "seatonjiang.gitmoji-vscode",
+        "amazonwebservices.aws-toolkit-vscode",
+        "genieai.chatgpt-vscode"
+      ]
+    }
+  }
+}
