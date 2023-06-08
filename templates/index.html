@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Audio Recorder</title>
+</head>
+<body>
+    <h1>Audio Recorder</h1>
+
+    <button id="recordButton">Record</button>
+    <button id="stopButton">Stop</button>
+
+    <h2>Status: <span id="status"></span></h2>
+
+    <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+        <input id="fileInput" type="file" name="file" style="display: none;" capture="microphone">
+    </form>
+
+    <script>
+        let recordButton = document.getElementById('recordButton');
+        let stopButton = document.getElementById('stopButton');
+        let statusSpan = document.getElementById('status');
+        let uploadForm = document.getElementById('uploadForm');
+        let fileInput = document.getElementById('fileInput');
+
+        let recorder;
+
+        // recoder initialize
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(function (stream) {
+                let audioContext = new AudioContext();
+                let input = audioContext.createMediaStreamSource(stream);
+                const mediaStream = input.mediaStream;
+
+                recorder = new MediaRecorder(mediaStream);
+
+                recorder.ondataavailable = function (e) {
+                    let audioData = [];
+                    audioData.push(e.data);
+                    // let audioBlob = new Blob(audioData, { type: 'audio/webm' });
+                    let audioBlob = new Blob(audioData, { type: 'audio/wav' });
+                    // let audioFile = new File([audioBlob], 'recorded_audio.webm');
+                    let audioFile = new File([audioBlob], 'recorded_audio.wav');
+                    let formData = new FormData();
+                    formData.append('file', audioFile);
+                    let xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/upload');
+                    xhr.send(formData);
+                };
+
+                recordButton.addEventListener('click', function () {
+                    recorder.start();
+                    statusSpan.textContent = 'Recording...';
+                });
+
+                stopButton.addEventListener('click', function () {
+                    recorder.stop();
+                    statusSpan.textContent = 'Stopped';
+                });
+            })
+            .catch(function (err) {
+                console.error('Error accessing microphone', err);
+            });
+    </script>
+</body>
+</html>
